@@ -3,11 +3,32 @@
     padding: 0;
     text-align: center;
 }
+.navbar{
+    background-color: #081b31;
+    display: flex;
+    height: 80px;
+    position: relative;
+    text-align: center;
+    align-items: center;
+}
+#mode{
+    background: transparent;
+    position: absolute;
+    left: 90%;
+    top: 40%;
+    scale: 1.5;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    
+}
 h1{
     background-color: #081b31;
     color: #fff;
     height: 5rem;
     line-height: 5rem;
+    left: 38%;
+    position: absolute;
 }
 .choice{
     height: 165px;
@@ -33,6 +54,9 @@ img{
     align-items: center;
     gap: 3rem;
     margin-top: 5rem;
+}
+i{
+    color:#fff;
 }
 .score-board{
     display: flex;

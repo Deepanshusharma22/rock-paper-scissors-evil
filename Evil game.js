@@ -1,23 +1,46 @@
-console.log("1")
+console.log("EVIL")
 
 let userScore = 0;
 let compScore = 0;
 let numberofPlay = 1;
+let isScamActive = false; 
 
 let choices = document.querySelectorAll(".choice");
 const msg = document.querySelector("#msg")
+const scamBtn = document.querySelector("#scam-btn")
 
 const userScorePara = document.querySelector("#user-score")
 const compScorePara = document.querySelector("#comp-score")
+
+scamBtn.addEventListener("click", () => {
+    isScamActive = !isScamActive;
+    numberofPlay = 1; 
+
+    userScore = 0;
+    compScore = 0;
+    userScorePara.innerText = userScore;
+    compScorePara.innerText = compScore;
+
+    if (isScamActive) {
+        scamBtn.innerText = "Evil game: ON";
+        scamBtn.style.backgroundColor = "#2ed573"; 
+        msg.innerText = "Scores Reset! Evil Mode Active ";
+        msg.style.backgroundColor = "#2ed573";
+    } else {
+        scamBtn.innerText = "Evil";
+        scamBtn.style.backgroundColor = "#ff4757"; 
+        msg.innerText = "Scores Reset! Normal Fair Play Restored.";
+        msg.style.backgroundColor = "#081b31";
+    }
+});
 
 const genCompChoice = () => {
     const options = ["rock", "paper", "scissors"]
     const randIdx = Math.floor(Math.random() * 3);
     return options[randIdx];
 }
+
 const genFraudCompChoice = (userChoice) => {
-    // const fraudOptions=["rock","paper","scissor"]
-    // const idx=1;
     let fraudCompChoice;
     if (userChoice === "rock") {
         fraudCompChoice = "paper"
@@ -30,7 +53,6 @@ const genFraudCompChoice = (userChoice) => {
     }
     return fraudCompChoice
 }
-
 
 const genFraudChoice = (userChoice) => {
     let fraudChoice;
@@ -46,11 +68,10 @@ const genFraudChoice = (userChoice) => {
     return fraudChoice
 }
 
-
 const drawGame = () => {
     console.log("Game was draw Play Again");
     msg.innerText = "you draw"
-    msg.style.backgroundColor = "#81b31"
+    msg.style.backgroundColor = "#081b31"
 }
 
 const showWiner = (userWin) => {
@@ -70,16 +91,12 @@ const showWiner = (userWin) => {
     }
 }
 
-
-
 const playGame = (userChoice) => {
     console.log("user choice = ", userChoice);
-    //generte computer choice
     const compChoice = genCompChoice();
     console.log("comp choice = ", compChoice);
 
     if (userChoice === compChoice) {
-        //draw Game
         drawGame()
     }
     else {
@@ -95,16 +112,14 @@ const playGame = (userChoice) => {
         }
         showWiner(userWin);
     }
-
 }
+
 const playCompFraudGame = (userChoice) => {
     console.log("user choice = ", userChoice);
-    //generte computer choice
     const compChoice = genFraudCompChoice(userChoice);
     console.log("comp choice = ", compChoice);
 
     if (userChoice === compChoice) {
-        //draw Game
         drawGame()
     }
     else {
@@ -121,14 +136,13 @@ const playCompFraudGame = (userChoice) => {
         showWiner(userWin);
     }
 }
+
 const playFraudGame = (userChoice) => {
     console.log("user choice = ", userChoice);
-    //generte computer choice
     const compChoice = genFraudChoice(userChoice);
     console.log("comp choice = ", compChoice);
 
     if (userChoice === compChoice) {
-        //draw Game
         drawGame()
     }
     else {
@@ -147,69 +161,42 @@ const playFraudGame = (userChoice) => {
 }
 
 choices.forEach((choice) => {
-
     choice.addEventListener("click", () => {
         const userChoice = choice.getAttribute("id")
-        // if (numberofPlay<=5) {
-        //     playGame(userChoice)
-        // }
-        // else{
-        //     if (Math.random()<0.3) {
-        //         playGame(userChoice)
-        //     }
-        //     else{
-        //         playCompFraudGame(userChoice)
-        //     }
-        // }
-        if (numberofPlay <= 2) {
-            playFraudGame(userChoice)
-        }
-        else if (numberofPlay <= 5) {
-            if (Math.random() < 0.9) {
-                playGame(userChoice)
+
+        if (isScamActive) {
+            if (numberofPlay <= 2) {
+                playFraudGame(userChoice) 
+            }
+            else if (numberofPlay <= 5) {
+                if (Math.random() < 0.7) { 
+                    playGame(userChoice)
+                }
+                else {
+                    playCompFraudGame(userChoice)
+                }
+            }
+            else if (numberofPlay <= 10) {
+                if (Math.random() < 0.4) {
+                    playGame(userChoice)
+                }
+                else {
+                    playCompFraudGame(userChoice)
+                }
             }
             else {
-                playCompFraudGame(userChoice)
+                if (Math.random() < 0.05) {
+                    playGame(userChoice)
+                }
+                else {
+                    playCompFraudGame(userChoice)
+                }
             }
-        }
-        else if (numberofPlay <= 10) {
-            if (Math.random() < 0.7) {
-                playGame(userChoice)
-            }
-            else {
-                playCompFraudGame(userChoice)
-            }
-        }
-        else if (numberofPlay <= 15) {
-            if (Math.random() < 0.5) {
-                playGame(userChoice)
-            }
-            else {
-                playCompFraudGame(userChoice)
-            }
-        }
-        else if (numberofPlay <= 20) {
-            if (Math.random() < 0.3) {
-                playGame(userChoice)
-            }
-            else {
-                playCompFraudGame(userChoice)
-            }
-        }
+            numberofPlay = numberofPlay + 1;
+            console.log("Scam Mode Round Count: ", numberofPlay);
+        } 
         else {
-            if (Math.random() < 0.1) {
-                playGame(userChoice)
-            }
-            else {
-                playCompFraudGame(userChoice)
-            }
+            playGame(userChoice);
         }
-
-
-        numberofPlay = numberofPlay + 1;
-        console.log(numberofPlay);
     });
 });
-
-
-

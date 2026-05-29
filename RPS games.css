@@ -20,7 +20,6 @@
     border: none;
     color: #fff;
     cursor: pointer;
-    
 }
 h1{
     background-color: #081b31;
@@ -79,13 +78,36 @@ i{
     display: inline;
     padding: 1rem;
     border-radius: 1rem;
-
 }
 @media screen and (max-width:600px){
     .choices{
         flex-direction: column;
-        justify-content: center;
+        justify-weight: center;
         align-items: center;
-         
     }
+}
+
+/* Added Floating Scam Button Styles */
+.scam-floating-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 12px 24px;
+    background-color: #ff4757;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: transform 0.2s, background-color 0.2s;
+}
+.scam-floating-btn:hover {
+    background-color: #ff6b81;
+    transform: translateY(-2px);
+}
+.scam-floating-btn:active {
+    transform: translateY(0);
 }
